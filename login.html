@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<script src="script.js"></script>
+    <title>Fruit-Bar</title>
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://app.dmenuonline.com/css/menu.css?v=4"
+      rel="stylesheet"
+    />
+    <script src="https://app.dmenuonline.com/js/ads.js?v=4"></script>
+  </head>
+
+  <body>
+    <!-- Ads modal -->
+    <div
+      id="ads"
+      class="modal animated bounceIn"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="myModalLabel"
+      aria-hidden="true"
+      style="position: fixed; left: 10%; top: 20%"
+    >
+      <!-- dialog -->
+      <div class="modal-dialog" style="width: 80%; height: 60%">
+        <!-- content -->
+        <div
+          class="modal-content"
+          style="
+            -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+            border: none;
+          "
+        >
+          <!-- header -->
+          <div class="modal-header">
+            <span data-dismiss="modal">
+              <i class="fa fa-times-circle" style="font-size: 30px"></i>
+            </span>
+          </div>
+          <!-- header -->
+        </div>
+        <!-- content -->
+      </div>
+      <!-- dialog -->
+    </div>
+    <!-- Ads modal -->
+
+    <style>
+      .iti {
+        display: block !important;
+      }
+      .iti__country-list {
+        width: 280px;
+      }
+
+      body {
+        background: linear-gradient(to top, #000000, #0a8132);
+        color: black;
+      }      
+      
+
+      
+    </style>
+    <script src="https://app.dmenuonline.com/js/intl-tel-input/js/intlTelInput.js"></script>
+    <link
+      href="https://app.dmenuonline.com/js/intl-tel-input/css/intlTelInput.css"
+      rel="stylesheet"
+    />
+    <div style="display: flex; height: 365px">
+      <img src="images/mainpic.jpg" style="width: 300px; margin: auto" />
+    </div>
+
+    <div class="form-container">
+      <form style="padding: 10px; " action="" method="get">
+        <input
+          type="hidden"
+          name="_token"
+          value="C38MW9gDkwgVG6nUtU4Kb28ry5oM5gwYMSrBYEeR"
+        />
+        <input type="hidden" name="_method" value="POST" />
+        <div class="f
+          <label for="fullname"><b>Name</b></label>
+          <input
+            type="text"
+            id="customerName"
+            name="full_name"
+            class="form-control"
+            placeholder=""
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="customerPhone"
+            name="phone"
+            class="form-control"
+            placeholder=""
+            required
+          />
+          <small id="fullname" class="form-text text-muted"
+            >We'll never share your data with anyone else.</small
+          >
+        </div>
+        <button type="submit" class="btn btn-primary submit">Submit</button>
+        <button id="btn-skip" class="btn skip" style="float: right">Skip</button>
+      </form>
+    </div>
+  </body>
+
+  <script>
+
+    function submitForm(event) {
+      event.preventDefault(); 
+      
+      var fullName = document.getElementById('customerName').value;
+      var phoneNumber = document.getElementById('customerPhone').value;
+  
+      if (!fullName) {
+        
+        alert('Please fill in your full name.');
+      } else if (fullName && phoneNumber) {
+        
+        window.location.href = 'index.html';
+      } else {
+        
+        return;
+      }
+    }
+  
+    var submitButton = document.querySelector('.submit');
+    submitButton.addEventListener('click', submitForm);
+
+    $("input[type=tel]").each(function () {
+      var iti = window.intlTelInput(this, {
+        utilsScript:
+          "https://app.dmenuonline.com/js/intl-tel-input/js/utils.js",
+        initialCountry: "auto",
+        geoIpLookup: function (success, failure) {
+          $.get(
+            "https://ipinfo.io?token=e1d746a7a8e255",
+            function () {},
+            "jsonp"
+          ).always(function (resp) {
+            var countryCode = resp && resp.country ? resp.country : "";
+            success(countryCode);
+          });
+        },
+      });
+
+      this.addEventListener("countrychange", function (e) {
+        var dialCode = iti.getSelectedCountryData().dialCode;
+        this._iti_country = dialCode ? dialCode : "";
+        if (dialCode) {
+          this.value = "+" + dialCode;
+        }
+      });
+
+     });
+
+    $(".skip")
+      .off("click")
+      .on("click", function (e) {
+        e.preventDefault();
+        location.replace("index.html");
+      });
+
+    
+  </script>
+</html>
